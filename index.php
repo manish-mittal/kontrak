@@ -61,7 +61,7 @@
 					<a href="#0">Manage Contracts</a>
 					<ul>
 						<li><a href="index.php?new_contract">Add New Contract</a></li>
-						<li><a href="#0">Edit Contract</a></li>
+						<li><a href="index.php?edit_contract">Edit Contract</a></li>
 						<li><a href="#0">Contract Categories</a></li>
 					</ul>
 				</li>
@@ -129,6 +129,12 @@
 			<?php
 				if(isset($_GET['new_contract'])){
                     include("new_contract.php"); 
+                }
+                if(isset($_GET['edit_contract'])){
+                    include("edit_contract.php"); 
+                }
+                if(isset($_GET['updateContract'])){
+                    include("updateContract.php"); 
                 }
                 if(isset($_GET['add_notice_period'])){
                     include("add_notice_period.php"); 
