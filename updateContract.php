@@ -4,55 +4,78 @@
         header("Location: login.php");
         die();
     }
+    if(isset($_GET['updateContract'])){
+        $contract_num = $_GET['reference-num'];
+        $get_contract = "Select * from contract where contract_no = '$contract_num'";
+        $result_contract = mysqli_query($conn,$get_contract);
+        $row_contract = mysqli_fetch_array($result_contract);
 
-    if(isset($_GET['edit_contract'])){
-        $get_num = $_GET['edit_contract'];
-        $get_car = "select * from cardetails where Car_Model_Name = '$get_name'";
-        $run_car = mysqli_query($conn,$get_car);
-        $i = 0;
-        $row_car = mysqli_fetch_array($run_car);
-        $car_company = $row_car['Car_Company'];
-        $get_comp = "select * from company where company_id = '$car_company'";
-        $run_comp = mysqli_query($conn,$get_comp);
-        $row_comp = mysqli_fetch_array($run_comp);
-        $company_name = $row_comp['company_name'];
-        $car_name = $row_car['Car_Model_Name'];
+        $category_id = $row_contract['category_id'];
+        $get_category = "Select * from category where category_id = '$category_id'";
+        $result_category = mysqli_query($conn, $get_category);
+        $row_category = mysqli_fetch_array($result_category);
+
+        $language_id = $row_contract['language_id'];
+        $get_language = "Select * from language where language_id = '$language_id'";
+        $result_language = mysqli_query($conn, $get_language);
+        $row_language = mysqli_fetch_array($result_language);
+
+        $country_id = $row_contract['country_id'];
+        $get_country = "Select * from country where country_id = '$country_id'";
+        $result_country = mysqli_query($conn, $get_country);
+        $row_country = mysqli_fetch_array($result_country);
+
+        $currency_id = $row_contract['currency_id'];
+        $get_currency = "Select * from currency where currency_id = '$currency_id'";
+        $result_currency = mysqli_query($conn, $get_currency);
+        $row_currency = mysqli_fetch_array($result_currency);
+
+        $vendor_id = $row_contract['vendor_id'];
+        $get_vendor = "Select * from vendor where vendor_id = '$vendor_id'";
+        $result_vendor = mysqli_query($conn, $get_vendor);
+        $row_vendor = mysqli_fetch_array($result_vendor);
+
+        $sdm_id = $row_contract['sdm_id'];
+        $get_sdm = "Select * from service_delivery_manager where sdm_id = '$sdm_id'";
+        $result_sdm = mysqli_query($conn, $get_sdm);
+        $row_sdm = mysqli_fetch_array($result_sdm);
+
+        $expiration_id = $row_contract['expiration_id'];
+        $get_expiration = "Select * from expiration where expiration_id = '$expiration_id'";
+        $result_expiration = mysqli_query($conn, $get_expiration);
+        $row_expiration = mysqli_fetch_array($result_expiration);
+
+        $renewal_provision_id = $row_expiration['renewal_provision_id'];
+        $get_renewal_provision = "Select * from renewal_provision where renewal_provision_id = '$renewal_provision_id'";
+        $result_renewal_provision = mysqli_query($conn, $get_renewal_provision);
+        $row_renewal_provision = mysqli_fetch_array($result_renewal_provision);
+	}
 ?>
+
 <h1 style="text-align: left; padding-left: 5%;">Update Contract</h1>
 <div class="form-container">
-    <form method="post" action="index.php?new_contract" enctype="multipart/form-data" id="form">
+    <form method="post" action="" enctype="multipart/form-data" id="form">
         <fieldset>
             <legend>Contract Details</legend>
                 <ul class="form-flex-outer">
                     <li>
                         <label for="reference-num">Reference No.</label>
-                        <input type="text" id="reference-num" name="reference-num" placeholder="Enter contract reference number here">
+                        <input type="text" id="reference-num" name="reference-num" value="<?php echo $contract_num; ?>">
                     </li>
                     <li>
-                        <p>Type</p>
-                        <ul class="form-flex-inner">
-                            <li>
-                                <input type="radio" id="software" name="contract_type" value="software" checked="checked">
-                                <label for="software">Software</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="hardware" name="contract_type" value="hardware">
-                                <label for="hardware">Hardware</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="license" name="contract_type" value="license">
-                                <label for="license">License</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="other" name="contract_type" value="other">
-                                <label for="other">Other</label>
-                            </li>
-                        </ul>
+                    	<label for="type">Type</label>
+                        <select name="contract_type" id="type" required>
+                            <option selected="selected" disabled="disabled"><?php echo $row_contract['type_id']; ?></option>
+                            <option value="software">Software</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="license">License</option>
+                            <option value="other">Other</option>
+                        </select>
                     </li>
                     <li>
                         <label for="category">Category</label>
                         <select name="category" id="category" required>
-                            <option>Select a Category</option>
+                            <option selected="selected" disabled="disabled"><?php echo $row_category['category']; ?></option>
                             <?php
                                 $get_category = "select * from category";
                                 $result_category = mysqli_query($conn,$get_category);
@@ -66,16 +89,20 @@
                     </li>
                     <li>
                         <label for="description">Description</label>
-                        <textarea rows="6" id="description" name="description" placeholder="Enter Goods/Services Description here"></textarea>
+                        <textarea rows="6" id="description" name="description"><?php echo $row_contract['description']; ?></textarea>
                     </li>
                     <li>
                         <label for="datepicker">Date of Agreement</label>
-                        <input type="text" name="date" id="datepicker">
+                        <input type="text" name="date" id="datepicker" value="<?php 
+                        	$dateArray = explode('-', $row_contract['date_of_agreement']);
+        					$date = $dateArray[1].'/'.$dateArray[2].'/'.$dateArray[0];
+        					echo $date; 
+        				?>">
                     </li>
                     <li>
                         <label for="language">Language</label>
                         <select name="language" id="language" required>
-                            <option>Language of Contract</option>
+                            <option selected="selected" disabled="disabled"><?php echo $row_language['language']; ?></option>
                             <?php
                                 $get_language = "select * from language";
                                 $result_language = mysqli_query($conn,$get_language);
@@ -89,16 +116,16 @@
                     </li>
                     <li>
                         <label for="life">Total Committed Value (Years)</label>
-                        <input type="number" name="life" id="life">
+                        <input type="number" name="life" id="life" value="<?php echo $row_contract['life_of_contract']; ?>">
                     </li>
                     <li>
                         <label for="supplier">Name of Supplier</label>
-                        <input type="text" name="supplier" id="supplier" placeholder="Enter Supplier's Name here">
+                        <input type="text" name="supplier" id="supplier" value="<?php echo $row_contract['supplier_name']; ?>">
                     </li>
                     <li>
                         <label for="country">Country</label>
                         <select name="country" id="country" required>
-                            <option>Select a Country</option>
+                            <option selected="selected" disabled="disabled"><?php echo $row_country['country']; ?></option>
                             <?php
                                 $get_country = "select * from country";
                                 $result_country = mysqli_query($conn,$get_country);
@@ -118,7 +145,7 @@
                     <li>
                         <label for="currency">Currency</label>
                         <select name="currency" id="currency" required>
-                            <option>Select a Currency</option>
+                            <option selected="selected" disabled="disabled"><?php echo $row_currency['currency']; ?></option>
                             <?php
                                 $get_currency = "select * from currency";
                                 $result_currency = mysqli_query($conn,$get_currency);
@@ -132,15 +159,15 @@
                     </li>
                     <li>
                         <label for="spend">Annual Spend</label>
-                        <input type="text" name="spend" id="spend" placeholder="Total Spend Annually">
+                        <input type="text" name="spend" id="spend" value="<?php echo $row_contract['annual_spend']; ?>">
                     </li>
                     <li>
                         <label for="terms">Terms</label>
-                        <textarea rows="6" name="terms" id="terms" placeholder="Enter terms of payment here"></textarea>
+                        <textarea rows="6" name="terms" id="terms"><?php echo $row_contract['payment_terms']; ?></textarea>
                     </li>
                     <li>
                         <label for="status">Status</label>
-                        <input type="text" id="status" name="status" placeholder="Enter status of payment here">
+                        <input type="text" id="status" name="status" value="<?php echo $row_contract['status']; ?>">
                     </li>
                 </ul>
         </fieldset>
@@ -149,15 +176,15 @@
                 <ul class="form-flex-outer">
                     <li>
                         <label for="vendor_name">Name</label>
-                        <input type="text" id="vendor_name" name="vendor_name" placeholder="Enter Vendor Name">
+                        <input type="text" id="vendor_name" name="vendor_name" value="<?php echo $row_vendor['contact_name']; ?>">
                     </li>
                     <li>
                         <label for="vendor_email">Email</label>
-                        <input type="email" id="vendor_email" name="vendor_email" placeholder="Enter Vendor Email">
+                        <input type="email" id="vendor_email" name="vendor_email" value="<?php echo $row_vendor['email']; ?>">
                     </li>
                     <li>
                         <label for="vendor_contact">Contact Number</label>
-                        <input type="text" id="vendor_contact" name="vendor_contact" placeholder="Enter Vendor Contact number">
+                        <input type="text" id="vendor_contact" name="vendor_contact" value="<?php echo $row_vendor['phone_no']; ?>">
                     </li>
                 </ul>
         </fieldset>
@@ -166,19 +193,19 @@
                 <ul class="form-flex-outer">
                     <li>
                         <label for="sdm_name">Name</label>
-                        <input type="text" id="sdm_name" name="sdm_name" placeholder="Enter SDM Name">
+                        <input type="text" id="sdm_name" name="sdm_name" value="<?php echo $row_sdm['name']; ?>">
                     </li>
                     <li>
                         <label for="sdm_email">Email</label>
-                        <input type="email" id="sdm_email" name="sdm_email" placeholder="Enter Vendor Email">
+                        <input type="email" id="sdm_email" name="sdm_email" value="<?php echo $row_sdm['email']; ?>">
                     </li>
                     <li>
                         <label for="sdm_contact">Contact</label>
-                        <input type="text" id="sdm_contact" name="sdm_contact" placeholder="Enter Vendor Contact number">
+                        <input type="text" id="sdm_contact" name="sdm_contact" value="<?php echo $row_sdm['phone_no']; ?>">
                     </li>
                     <li>
                         <label for="remarks">Remarks</label>
-                        <textarea rows="6" name="remarks" id="remarks" placeholder="Enter Remarks here"></textarea>
+                        <textarea rows="6" name="remarks" id="remarks"><?php echo $row_contract['sdm_remarks']; ?></textarea>
                     </li>
                 </ul>
         </fieldset>
@@ -187,12 +214,16 @@
                 <ul class="form-flex-outer">
                     <li>
                         <label for="e-datepicker">Expiration Date</label>
-                        <input type="text" name="expiration_date" id="e-datepicker">
+                        <input type="text" name="expiration_date" id="e-datepicker" value="<?php
+                        	$e_dateArray = explode('-', $row_expiration['date']);
+        					$e_date = $e_dateArray[1].'/'.$e_dateArray[2].'/'.$e_dateArray[0];
+        					echo $e_date;
+        				?>">
                     </li>
                     <li>
                         <label for="renewal_provision">Renewal Provision</label>
                         <select name="renewal_provision" id="renewal_provision" required>
-                            <option>Choose Renewal Provision</option>
+                            <option selected="selected" disabled="disabled"><?php echo $row_renewal_provision['renewal_provision']; ?></option>
                             <?php
                                 $get_renewal_provision = "select * from renewal_provision";
                                 $result_renewal_provision = mysqli_query($conn,$get_renewal_provision);
@@ -206,24 +237,26 @@
                     </li>
                     <li>
                         <label for="termination_provision">Termination Rights / Provision</label>
-                        <textarea rows="6" name="termination_provision" id="termination_provision" placeholder="Enter Remarks here"></textarea>
+                        <textarea rows="6" name="termination_provision" id="termination_provision"><?php echo $row_expiration['termination_rights']; ?></textarea>
                     </li>
                     <li>
                         <label for="assignment_provision">Assignment Provision</label>
-                        <input type="text" id="assignment_provision" name="assignment_provision" placeholder="Assignment Provision">
+                        <input type="text" id="assignment_provision" name="assignment_provision" value="<?php echo $row_expiration['assignment_provision']; ?>">
                     </li>
                     <li>
-                        <input type="submit" name="create_contract">
+                        <input type="submit" name="update_contract" value="Update">
                     </li>
                 </ul>
         </fieldset>
     </form>
 </div>
 <?php
-
-    if(isset($_POST['create_contract'])) 
+    if(isset($_POST['update_contract'])) 
     {	  
 	   //Text data variables
+    	$vendor = $row_vendor['vendor_id'];
+    	$sdm = $row_sdm['sdm_id'];
+    	$expiration = $row_expiration['expiration_id'];
         $reference_num = mysqli_real_escape_string($conn,$_POST['reference-num']);
         $contract_type = $_POST['contract_type'];
         $category = mysqli_real_escape_string($conn,$_POST['category']);
@@ -252,23 +285,24 @@
         $assignment_provision = mysqli_real_escape_string($conn,$_POST['assignment_provision']);
 
         //Insert vendor,sdm into vendor and sdm table and get it's id - then store that id in contract table
-        $insert_vendor = "Insert into vendor(contact_name, email, phone_no) values('$vendor_name','$vendor_email', '$vendor_contact')";
+        $insert_vendor = "Update vendor set contact_name = '$vendor_name', email = '$vendor_email', phone_no = '$vendor_contact' where vendor_id='$vendor'";
         mysqli_query($conn, $insert_vendor);
-        $vendor_id = mysqli_insert_id($conn);
 
-        $insert_sdm = "Insert into service_delivery_manager(name, email, phone_no) values('$sdm_name','$sdm_email', '$sdm_contact')";
+        $insert_sdm = "Update service_delivery_manager set name = '$sdm_name', email = '$sdm_email', phone_no = '$sdm_contact' where sdm_id='$sdm'";
         mysqli_query($conn, $insert_sdm);
-        $sdm_id = mysqli_insert_id($conn);
 
-        $insert_expiration = "Insert into expiration(contract_no, date, renewal_provision_id, termination_rights, assignment_provision) values('$reference_num','$expiration_date', '$renewal_provision', '$termination_provision', '$assignment_provision')";
+        $insert_expiration = "Update expiration set contract_no = '$reference_num', date = '$expiration_date', renewal_provision_id = '$renewal_provision', termination_rights = '$termination_provision', assignment_provision = '$assignment_provision' where expiration_id='$expiration'";
         mysqli_query($conn, $insert_expiration);
-        $expiration_id = mysqli_insert_id($conn);
 
-        $insert_contract = "Insert into contract(contract_no, type_id, category_id, description, date_of_agreement, language_id, supplier_name, country_id, life_of_contract, vendor_id, sdm_id, sdm_remarks, currency_id, annual_spend, payment_terms, status, expiration_id) values('$reference_num','$contract_type','$category','$description','$date','$language','$supplier', '$country','$life','$vendor_id','$sdm_id', '$remarks', '$currency','$spend', '$terms' ,'$status', '$expiration_id')";
-	    $result_contract = mysqli_query($conn,$insert_contract);
+        $update_contract = "Update contract set contract_no = '$reference_num', type_id = '$contract_type', category_id = '$category', description = '$description', date_of_agreement = '$date', language_id = '$language', supplier_name = '$supplier', country_id = '$country', life_of_contract = '$life', vendor_id = '$vendor', sdm_id = '$sdm', sdm_remarks = '$remarks', currency_id = '$currency', annual_spend = '$spend', payment_terms = '$terms', status = '$status', expiration_id = '$expiration' where contract_no = '$contract_num'";
+	    $result_contract = mysqli_query($conn,$update_contract);
 	  
 	    if($result_contract){
-            echo"<script>alert('New contract details inserted successfully!')</script>"; 
+            echo"<script>alert('Contract details updated successfully!')</script>"; 
             echo"<script>window.open('index.php?new_contract','_self')</script>";
-	    } 
-    }
+	    }
+	    else{
+	    	echo "fail";
+	    }
+	}
+?>

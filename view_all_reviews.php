@@ -38,7 +38,7 @@
       			<td><?php echo $date; ?></td>
       			<td><?php echo $comments; ?></td>
       			<td><a href="index.php?edit_review=<?php echo $id;?>">Edit</a></td>
-      			<td><a href="delete_review.php?delete_review=<?php echo $id; ?>">Delete</a></td>
+      			<td><a href="index.php?delete_review=<?php echo $id; ?>">Delete</a></td>
    			</tr>
    		<?php 
    				} 

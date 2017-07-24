@@ -1,6 +1,5 @@
 <?php
 	include('config.php');
-	session_start();
 	if(isset($_SESSION['logged'])!="true")
 	{
  		header("Location: login.php");
@@ -62,7 +61,7 @@
 					<ul>
 						<li><a href="index.php?new_contract">Add New Contract</a></li>
 						<li><a href="index.php?edit_contract">Edit Contract</a></li>
-						<li><a href="#0">Contract Categories</a></li>
+						<li><a href="index.php?categories">Contract Categories</a></li>
 					</ul>
 				</li>
 				<li class="has-children notifications active">
@@ -95,14 +94,6 @@
 				<li class="has-children bookmarks">
 					<a href="index.php?view_all_vendor">View All Vendors</a>
 				</li>
-
-				<li class="has-children bookmarks">
-					<a href="#0">Issues</a>
-					<ul>
-						<li><a href="index.php?view_all_issues">All Issues</a></li>
-						<li><a href="#0">Settle Issues</a></li>
-					</ul>
-				</li>
 			</ul>
 
 			<ul>
@@ -111,17 +102,19 @@
 					<a href="index.php?attach_invoice">Attach an Invoice</a>
 				</li>
 				<li class="has-children images">
-					<a href="#0">Invoice Details</a>
+					<a href="index.php?view_invoice">Invoice Details</a>
 				</li>
 
 				<li class="has-children users">
-					<a href="#0">Generate Report</a>
+					<a href="index.php?generate_report">Generate Report</a>
 				</li>
 			</ul>
-
 			<ul>
 				<li class="cd-label">Action</li>
-				<li class="action-btn"><a href="#0">+ Submit an Issue</a></li>
+				<li class="has-children bookmarks">
+					<a href="index.php?view_all_issues">View Issues</a>
+				</li>
+				<li class="action-btn"><a href="index.php?submit_issue">+ Submit an Issue</a></li>
 			</ul>
 		</nav>
 
@@ -136,14 +129,35 @@
                 if(isset($_GET['updateContract'])){
                     include("updateContract.php"); 
                 }
+                if(isset($_GET['categories'])){
+                    include("categories.php"); 
+                }
+                if(isset($_GET['edit_category'])){
+                    include("edit_category.php"); 
+                }
+                if(isset($_GET['delete_category'])){
+                    include("delete_category.php"); 
+                }
                 if(isset($_GET['add_notice_period'])){
                     include("add_notice_period.php"); 
                 }
                 if(isset($_GET['view_all_notices'])){
                     include("view_all_notices.php"); 
                 }
+                if(isset($_GET['edit_notice'])){
+                    include("edit_notice.php"); 
+                }
+                if(isset($_GET['delete_notice'])){
+                    include("delete_notice.php"); 
+                }
                 if(isset($_GET['view_all_vendor'])){
                     include("view_all_vendor.php"); 
+                }
+                if(isset($_GET['edit_vendor'])){
+                    include("edit_vendor.php"); 
+                }
+                if(isset($_GET['delete_vendor'])){
+                    include("delete_vendor.php"); 
                 }
                 if(isset($_GET['add_review'])){
                     include("add_review.php"); 
@@ -151,11 +165,35 @@
                 if(isset($_GET['view_all_reviews'])){
                     include("view_all_reviews.php"); 
                 }
+                if(isset($_GET['edit_review'])){
+                    include("edit_review.php"); 
+                }
+                if(isset($_GET['delete_review'])){
+                    include("delete_review.php"); 
+                }
                 if(isset($_GET['view_all_issues'])){
                     include("view_all_issues.php"); 
                 }
+                if(isset($_GET['submit_issue'])){
+                    include("submit_issue.php"); 
+                }
+                if(isset($_GET['settle_issue'])){
+                    include("settle_issue.php"); 
+                }
                 if(isset($_GET['attach_invoice'])){
                     include("attach_invoice.php"); 
+                }
+                if(isset($_GET['view_invoice'])){
+                    include("view_invoice.php"); 
+                }
+                if(isset($_GET['view_invoices'])){
+                    include("view_invoices.php"); 
+                }
+                if(isset($_GET['edit_invoices'])){
+                    include("edit_invoices.php"); 
+                }
+                if(isset($_GET['generate_report'])){
+                    include("generate_report.php"); 
                 }
 				if(isset($_GET['logout'])){
                     include("logout.php"); 

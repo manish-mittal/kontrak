@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
     if(isset($_SESSION['logged'])!="true")
     {
         header("Location: login.php");
@@ -27,10 +24,9 @@ error_reporting(E_ALL);
                         <label for="description">Description</label>
                         <textarea rows="6" id="description"  name="description" placeholder="Enter Description here"></textarea>
                     </li>
-
                      <li>
                         <label for="invoice-file">File</label>
-                        <input id="file"  name = "file" type="file" ></input>
+                        <input id="file"  name = "file" type="file" attach="pdf"></input>
 
                     </li>
                     <li>
@@ -71,7 +67,7 @@ error_reporting(E_ALL);
         $input_invoice= "insert into invoice(id,contract_no ,description,file,amount, date) values ('$invoice_num','$contract_num','$description','$file','$amount', '$invoice_date')";
         $query = mysqli_query($conn,$input_invoice);
         if($query){
-            echo"<script>alert('Invoice Input Successfully!')</script>"; 
+            echo"<script>alert('Invoice Added Successfully!')</script>"; 
             echo"<script>window.open('index.php?attach_invoice','_self')</script>";
         }
     }

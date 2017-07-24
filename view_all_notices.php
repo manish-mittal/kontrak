@@ -23,7 +23,7 @@
 				else{
 					while($row_notice = mysqli_fetch_array($result_notice)){
 						$id = $row_notice['id'];
-						$contract_num = $row_notice['contact_no'];
+						$contract_num = $row_notice['contract_no'];
 						$date = $row_notice['date'];
 						$description = $row_notice['description'];
 						$i++;
@@ -35,7 +35,7 @@
       			<td><?php echo $date; ?></td>
       			<td><?php echo $description; ?></td>
       			<td><a href="index.php?edit_notice=<?php echo $id;?>">Edit</a></td>
-      			<td><a href="delete_notice.php?delete_notice=<?php echo $id; ?>">Delete</a></td>
+      			<td><a href="index.php?delete_notice=<?php echo $id; ?>">Delete</a></td>
    			</tr>
    		<?php 
    				} 

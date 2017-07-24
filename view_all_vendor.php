@@ -35,7 +35,7 @@
       			<td><?php echo $email; ?></td>
       			<td><?php echo $contact; ?></td>
       			<td><a href="index.php?edit_vendor=<?php echo $id;?>">Edit</a></td>
-      			<td><a href="delete_vendor.php?delete_vendor=<?php echo $id; ?>">Delete</a></td>
+      			<td><a href="index.php?delete_vendor=<?php echo $id; ?>">Delete</a></td>
    			</tr>
    		<?php 
    				} 

@@ -10,6 +10,8 @@
 				<th>Description</th>
 				<th>Name</th>
 				<th>Role</th>
+				<th>Status</th>
+				<th>Settle</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,11 +25,12 @@
 				else{
 					while($row_issues = mysqli_fetch_array($result_issues)){
 						$id = $row_issues['id'];
-						$contract_num = $row_issues['contact_no'];
+						$contract_num = $row_issues['contract_no'];
 						$subject = $row_issues['subject'];
 						$description = $row_issues['description'];
 						$issuer_name = $row_issues['issuer_name'];
 						$issuer_role = $row_issues['issuer_role'];
+						$issue_status = $row_issues['status'];
 						$i++;
 	   		?>
    			<tr>
@@ -38,6 +41,8 @@
       			<td><?php echo $description; ?></td>
       			<td><?php echo $issuer_name; ?></td>
       			<td><?php echo $issuer_role; ?></td>
+      			<td><?php echo $issue_status; ?></td>
+      			<td><a href="index.php?settle_issue=<?php echo $id; ?>">Settle</a></td>
    			</tr>
    		<?php 
    				} 

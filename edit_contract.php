@@ -8,7 +8,7 @@
 
 <h1 style="text-align: left; padding-left: 5%;">Edit Contract</h1>
 <div class="form-container">
-    <form method="post" action="index.php?updateContract" enctype="multipart/form-data" id="form">
+    <form method="get" action="index.php?updateContract" enctype="multipart/form-data" id="form">
         <fieldset>
             <legend>Contract Details</legend>
                 <ul class="form-flex-outer">
@@ -17,7 +17,7 @@
                         <input type="text" id="reference-num" name="reference-num" placeholder="Enter contract reference number here">
                     </li>
                     <li>
-                        <input type="submit" name="edit_contract">
+                        <input type="submit" name="updateContract">
                     </li>
                 </ul>
         </fieldset>

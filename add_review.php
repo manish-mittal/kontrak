@@ -28,7 +28,7 @@
                         <textarea rows="6" name="comments" id="comments" placeholder="Enter Comments here"></textarea>
                     </li>
                     <li>
-                    	<input type="submit" name="add_notice">
+                    	<input type="submit" name="add_review">
                     </li>
                 </ul>
         </fieldset>
@@ -36,7 +36,7 @@
 </div>
 
 <?php
-	if(isset($_POST['add_notice'])){
+	if(isset($_POST['add_review'])){
 	    $contract_num = mysqli_real_escape_string($conn, $_POST['contract-num']);
         $reviewer = mysqli_real_escape_string($conn, $_POST['reviewer']);
 	    $reviewDateArray = explode('/', $_POST['review_date']);
