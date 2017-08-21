@@ -1,11 +1,11 @@
 .form-container {
-  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-  width: 90%;
+  font: normal 15px/1.3 "Fira Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   background: #3AAFAB;
   color: #fff;
-  padding: 50px 0;
+  padding: 5px 0;
 }
 
 .form-flex-outer,
@@ -37,7 +37,7 @@
 
 .form-flex-outer li label,
 .form-flex-outer li p {
-  padding: 8px;
+  padding: 10px;
   font-weight: 300;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -58,10 +58,15 @@
   margin: 0;
 }
 
-.form-flex-outer li input:not([type='checkbox']),
-.form-flex-outer li textarea {
-  padding: 15px;
+.form-flex-outer li input:not([type='radio']),
+.form-flex-outer li textarea, .form-flex-outer li select {
+  padding: 5px;
   border: none;
+}
+
+.form-flex-outer li input[type='radio']{
+  text-align: center;
+  width: 100px;
 }
 
 .form-flex-outer li button {
@@ -77,4 +82,10 @@
 
 .form-flex-inner li {
   width: 100px;
+}
+
+fieldset {
+  padding: 1em;
+  margin: 3%;
+  border: 1px solid #fff;
 }

@@ -1,8 +1,3 @@
-/* -------------------------------- 
-
-Primary style
-
--------------------------------- */
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 *, *::after, *::before {
@@ -42,21 +37,15 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-/* -------------------------------- 
-
-Main Page Content
-
--------------------------------- */
 .cd-main-content .content-wrapper {
   padding: 25px 15px 3em;
 }
 .cd-main-content .content-wrapper h1 {
   text-align: center;
-  padding: 0.8em 0;
+  padding: 1em 0 0;
   font-size: 2rem;
 }
 .cd-main-content::before {
-  /* never visible - used to check MQ in jQuery */
   display: none;
   content: 'mobile';
 }
@@ -83,11 +72,6 @@ Main Page Content
   }
 }
 
-/* -------------------------------- 
-
-Header
-
--------------------------------- */
 .cd-main-header {
   position: absolute;
   z-index: 2;
@@ -127,7 +111,6 @@ Header
 }
 
 .cd-nav-trigger {
-  /* navigation trigger - visible on mobile devices only */
   float: right;
   position: relative;
   display: block;
@@ -140,7 +123,6 @@ Header
   color: transparent;
 }
 .cd-nav-trigger span, .cd-nav-trigger span::before, .cd-nav-trigger span::after {
-  /* hamburger icon in CSS */
   position: absolute;
   display: inline-block;
   height: 3px;
@@ -148,7 +130,6 @@ Header
   background: #ffffff;
 }
 .cd-nav-trigger span {
-  /* line in the center */
   position: absolute;
   top: 50%;
   right: 5px;
@@ -158,10 +139,8 @@ Header
   transition: background 0.2s;
 }
 .cd-nav-trigger span::before, .cd-nav-trigger span::after {
-  /* other 2 lines */
   content: '';
   right: 0;
-  /* Force Hardware Acceleration in WebKit */
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
@@ -179,19 +158,15 @@ Header
   transition: transform 0.2s;
 }
 .cd-nav-trigger span::before {
-  /* menu icon top line */
   top: -6px;
 }
 .cd-nav-trigger span::after {
-  /* menu icon bottom line */
   top: 6px;
 }
 .cd-nav-trigger.nav-is-visible span {
-  /* hide line in the center */
   background: rgba(255, 255, 255, 0);
 }
 .cd-nav-trigger.nav-is-visible span::before, .cd-nav-trigger.nav-is-visible span::after {
-  /* keep visible other 2 lines */
   background: white;
 }
 .cd-nav-trigger.nav-is-visible span::before {
@@ -261,7 +236,6 @@ Header
     margin: 0 0 0 2.5em;
   }
   .cd-search.is-hidden {
-    /* reset style */
     opacity: 1;
   }
   .cd-search::before {
@@ -294,13 +268,7 @@ Header
   }
 }
 
-/* -------------------------------- 
-
-Top Navigation
-
--------------------------------- */
 .cd-nav {
-  /* top nav - not visible on mobile devices */
   display: none;
 }
 @media only screen and (min-width: 768px) {
@@ -312,14 +280,12 @@ Top Navigation
 }
 
 .cd-top-nav > li > a::before {
-  /* reset style */
   display: none;
 }
 .cd-top-nav > li a {
   padding: 1em 5% !important;
 }
 .cd-top-nav img {
-  /* avatar image */
   position: absolute;
   left: 1.8em;
   top: 50%;
@@ -364,11 +330,6 @@ Top Navigation
   }
 }
 
-/* -------------------------------- 
-
-Sidebar
-
--------------------------------- */
 .cd-side-nav {
   position: absolute;
   z-index: 1;
@@ -428,7 +389,6 @@ Sidebar
   border-bottom: 1px solid #373d44;
 }
 .cd-side-nav > ul > li > a::before {
-  /* icon before item name */
   position: absolute;
   content: '';
   left: 5%;
@@ -462,7 +422,6 @@ Sidebar
   background-position: -16px 0;
 }
 .cd-side-nav .count {
-  /* notification badge */
   position: absolute;
   top: 50%;
   bottom: auto;
@@ -516,11 +475,9 @@ Sidebar
     position: fixed;
   }
   .cd-side-nav > ul {
-    /* reset style */
     padding: 0;
   }
   .cd-side-nav .cd-label {
-    /* remove labels on minified version of the sidebar */
     display: none;
   }
   .cd-side-nav a {
@@ -679,7 +636,6 @@ Sidebar
     display: none;
   }
   .cd-side-nav .has-children.selected > a {
-    /* focus state -> show sub pages */
     background-color: #33383e;
   }
   .cd-top-nav .has-children {
@@ -716,15 +672,12 @@ Sidebar
     padding-left: 18px;
   }
   .has-children.active > ul {
-    /* if the item is active, make the subnavigation visible */
     position: relative;
     display: block;
-    /* reset style */
     left: 0;
     box-shadow: none;
   }
   .no-touch .cd-side-nav .has-children:hover > ul, .cd-side-nav .has-children.hover > ul {
-    /* show subnavigation on hover */
     display: block;
     opacity: 1;
     visibility: visible;

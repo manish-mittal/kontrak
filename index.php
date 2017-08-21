@@ -1,5 +1,6 @@
 <?php
 	include('config.php');
+	include('modules/notification/update_notifications.php');
 	if(isset($_SESSION['logged'])!="true")
 	{
  		header("Location: login.php");
@@ -11,15 +12,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Manish Mittal">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><!-- Normalize -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-	<link rel="stylesheet" href="css/table_style.css"> <!-- Resource style -->
-	<link rel="stylesheet" href="css/form_style.css"> <!-- Form Styling -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/table_style.css">
+	<link rel="stylesheet" href="css/form_style.css">
+	<script src="js/modernizr.js"></script>
   	
 	<title>KonTrak</title>
 </head>
@@ -28,19 +30,17 @@
 		<a href="index.html" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
 		
 		<div class="cd-search is-hidden">
-			<form action="#0">
-				<input type="search" placeholder="Search...">
+			<form action="index.php?search">
+				<input type="search" placeholder="Search..." name="search">
 			</form>
-		</div> <!-- cd-search -->
+		</div>
 
-		<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+		<a href="#" class="cd-nav-trigger">Menu<span></span></a>
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
-				<!-- <li><a href="#0">Tour</a></li>
-				<li><a href="#0">Support</a></li> -->
 				<li class="has-children account">
-					<a href="#0">
+					<a href="#">
 						<img src="img/cd-avatar.png" alt="avatar">
 						Account
 					</a>
@@ -50,31 +50,47 @@
 				</li>
 			</ul>
 		</nav>
-	</header> <!-- .cd-main-header -->
+	</header>
 
 	<main class="cd-main-content">
 		<nav class="cd-side-nav">
 			<ul>
 				<li class="cd-label">Main</li>
-				<li class="has-children overview">
-					<a href="#0">Manage Contracts</a>
+				<li class="has-children overview active">
+					<a>Manage Contracts</a>
 					<ul>
 						<li><a href="index.php?new_contract">Add New Contract</a></li>
 						<li><a href="index.php?edit_contract">Edit Contract</a></li>
 						<li><a href="index.php?categories">Contract Categories</a></li>
 					</ul>
 				</li>
-				<li class="has-children notifications active">
-					<a href="#0">Notifications<span class="count"></span></a>
-					
+				<li class="has-children notifications">
+					<a href="index.php?view_all_notifications">Notifications<span class="count">
+					<?php
+ 						$get_notifications = "select * from notification where viewed = 0";
+ 						$result = mysqli_query($conn,$get_notifications);
+ 						$i = 0;
+ 						if(mysqli_num_rows($result) == 0){
+ 							echo "0";
+ 						}
+						else{
+							while($row_issues = mysqli_fetch_array($result))
+							{
+	 							$status = $row['status'];
+	 							if($status==0)
+	 							$i++;
+							}
+							echo $i;
+						}
+ 					?>
+ 					</span></a>
 					<ul>
-						<li><a href="#0">Expiration</a></li>
-						<li><a href="#0">Notice Period</a></li>
+						<li><a href="index.php?all_notifications">View All</a></li>
 					</ul>
 				</li>
 
 				<li class="has-children comments">
-					<a href="#0">Reviewer Comments</a>
+					<a>Reviewer Comments</a>
 					
 					<ul>
 						<li><a href="index.php?add_review">Add Review</a></li>
@@ -83,7 +99,7 @@
 				</li>
 
 				<li class="has-children comments">
-					<a href="#0">Notice Periods</a>
+					<a>Notice Periods</a>
 					
 					<ul>
 						<li><a href="index.php?add_notice_period">Add Notice Period</a></li>
@@ -120,91 +136,101 @@
 
 		<div class="content-wrapper">
 			<?php
+				if(isset($_GET['search'])){
+                    include("search.php"); 
+                }
 				if(isset($_GET['new_contract'])){
-                    include("new_contract.php"); 
+                    include("modules/contract/new_contract.php"); 
                 }
                 if(isset($_GET['edit_contract'])){
-                    include("edit_contract.php"); 
+                    include("modules/contract/edit_contract.php"); 
                 }
                 if(isset($_GET['updateContract'])){
-                    include("updateContract.php"); 
+                    include("modules/contract/updateContract.php"); 
                 }
                 if(isset($_GET['categories'])){
-                    include("categories.php"); 
+                    include("modules/category/categories.php"); 
                 }
                 if(isset($_GET['edit_category'])){
-                    include("edit_category.php"); 
+                    include("modules/category/edit_category.php"); 
                 }
                 if(isset($_GET['delete_category'])){
-                    include("delete_category.php"); 
+                    include("modules/category/delete_category.php"); 
                 }
+                if(isset($_GET['view_all_notifications'])){
+                    include("modules/notification/view_all_notifications.php"); 
+ 	            }
+ 	            if(isset($_GET['all_notifications'])){
+                    include("modules/notification/all_notifications.php"); 
+ 	            }
                 if(isset($_GET['add_notice_period'])){
-                    include("add_notice_period.php"); 
+                    include("modules/notice/add_notice_period.php"); 
                 }
                 if(isset($_GET['view_all_notices'])){
-                    include("view_all_notices.php"); 
+                    include("modules/notice/view_all_notices.php"); 
                 }
                 if(isset($_GET['edit_notice'])){
-                    include("edit_notice.php"); 
+                    include("modules/notice/edit_notice.php"); 
                 }
                 if(isset($_GET['delete_notice'])){
-                    include("delete_notice.php"); 
+                    include("modules/notice/delete_notice.php"); 
                 }
                 if(isset($_GET['view_all_vendor'])){
-                    include("view_all_vendor.php"); 
+                    include("modules/vendor/view_all_vendor.php"); 
                 }
                 if(isset($_GET['edit_vendor'])){
-                    include("edit_vendor.php"); 
+                    include("modules/vendor/edit_vendor.php"); 
                 }
                 if(isset($_GET['delete_vendor'])){
-                    include("delete_vendor.php"); 
+                    include("modules/vendor/delete_vendor.php"); 
                 }
                 if(isset($_GET['add_review'])){
-                    include("add_review.php"); 
+                    include("modules/review/add_review.php"); 
                 }
                 if(isset($_GET['view_all_reviews'])){
-                    include("view_all_reviews.php"); 
+                    include("modules/review/view_all_reviews.php"); 
                 }
                 if(isset($_GET['edit_review'])){
-                    include("edit_review.php"); 
+                    include("modules/review/edit_review.php"); 
                 }
                 if(isset($_GET['delete_review'])){
-                    include("delete_review.php"); 
+                    include("modules/review/delete_review.php"); 
                 }
                 if(isset($_GET['view_all_issues'])){
-                    include("view_all_issues.php"); 
+                    include("modules/issue/view_all_issues.php"); 
                 }
                 if(isset($_GET['submit_issue'])){
-                    include("submit_issue.php"); 
+                    include("modules/issue/submit_issue.php"); 
                 }
                 if(isset($_GET['settle_issue'])){
-                    include("settle_issue.php"); 
+                    include("modules/issue/settle_issue.php"); 
                 }
                 if(isset($_GET['attach_invoice'])){
-                    include("attach_invoice.php"); 
+                    include("modules/invoice/attach_invoice.php"); 
                 }
                 if(isset($_GET['view_invoice'])){
-                    include("view_invoice.php"); 
+                    include("modules/invoice/view_invoice.php"); 
                 }
                 if(isset($_GET['view_invoices'])){
-                    include("view_invoices.php"); 
+                    include("modules/invoice/view_invoices.php"); 
                 }
                 if(isset($_GET['edit_invoices'])){
-                    include("edit_invoices.php"); 
+                    include("modules/invoice/edit_invoices.php"); 
                 }
                 if(isset($_GET['generate_report'])){
-                    include("generate_report.php"); 
+                    include("modules/invoice/generate_report.php"); 
                 }
 				if(isset($_GET['logout'])){
                     include("logout.php"); 
                 }
 			?>
-		</div> <!-- .content-wrapper -->
-	</main> <!-- .cd-main-content -->
+		</div>
+	</main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 <script src="js/jquery.menu-aim.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
+<script src="js/main.js"></script>
 <script>
     $(function() {
         $("#datepicker").datepicker();
